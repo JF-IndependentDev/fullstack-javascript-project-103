@@ -11,9 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^13.1.0"
+    "commander": "^13.1.0",
+    "lodash-es": "^4.17.21"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
+    
   }
 }

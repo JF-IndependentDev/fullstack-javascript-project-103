@@ -4,6 +4,7 @@ import * as path from 'node:path';
 
 export const readFile = (filepath) => {
     const fullpath = path.resolve(process.cwd(), filepath);
+    console.log('Leyendo archivo en:', fullpath);
     return fs.readFileSync(fullpath, 'utf-8');
 }
 
