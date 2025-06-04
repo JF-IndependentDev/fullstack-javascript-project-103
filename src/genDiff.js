@@ -1,35 +1,43 @@
 import path from 'path';
 import fs from 'fs';
 import parse from './parsers.js';
-import getDiff from './compare.js'; 
+import getDiff from './utils/diff.js';
+import format from './formatters/index.js';
 
+export const readFile = (filepath) => {
 
-const getFullPath = (filepath) => path.resolve(process.cwd(), filepath);
-
-const readFile = (fullFilePath) => {
   try {
-    const extension = path.extname(fullFilePath).slice(1);
-    const rawContent = fs.readFileSync(fullFilePath, 'utf-8');
-    return parse(rawContent, extension);
+    const fullpath = path.resolve(process.cwd(), filepath);
+    return fs.readFileSync(fullpath, 'utf-8');
   } catch (err) {
-    console.error(`Error leyendo archivo "${fullFilePath}":`, err.message);
+    console.error(`Error leyendo archivo: ${filepath}`, err.message);
     return null;
   }
 };
+
+const getFullPath = (filepath) => path.resolve(process.cwd(), filepath);
 
 export default function genDiff(path1, path2, formatType = 'stylish') {
   const fullPath1 = getFullPath(path1);
   const fullPath2 = getFullPath(path2);
 
-  const data1 = readFile(fullPath1);
-  const data2 = readFile(fullPath2);
+  const extension1 = path.extname(fullPath1).slice(1).toLowerCase().trim();
+  const extension2 = path.extname(fullPath2).slice(1).toLowerCase().trim();
 
-  if (!data1 || !data2) {
+
+  const raw1 = readFile(fullPath1);
+  const raw2 = readFile(fullPath2);
+
+  if (!raw1 || !raw2) {
     return 'Error leyendo uno de los archivos.';
   }
 
+  const data1 = parse(raw1, extension1);
+  const data2 = parse(raw2, extension2);
+
   const diff = getDiff(data1, data2);
 
+  const formattedDiff = format({ data: diff, formatType });
 
-  return JSON.stringify(diff, null, 2);
+  return formattedDiff;
 }

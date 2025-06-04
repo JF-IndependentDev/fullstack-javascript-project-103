@@ -1,0 +1,25 @@
+name: CodeClimate Coverage
+
+on: [push]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - run: npm install
+      - run: npm test -- --coverage
+
+      - name: Upload coverage to Code Climate
+        uses: paambaati/codeclimate-action@v5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          
+        with:
+          coverageCommand: npm test -- --coverage
+          debug: true
