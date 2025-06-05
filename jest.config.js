@@ -1,9 +1,8 @@
-export default {
+// jest.config.js
+module.exports = {
   testEnvironment: 'node',
-  transform: {},
+  transform: {
+    '^.+\\.js$': 'babel-jest',
+  },
   moduleFileExtensions: ['js', 'json', 'node'],
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coverageReporters: ['lcov', 'text'],
-  collectCoverageFrom: ['src/**/*.js'],
 };
