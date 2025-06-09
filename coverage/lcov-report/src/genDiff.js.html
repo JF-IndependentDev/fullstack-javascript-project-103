@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>18/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/20</span>
+                <span class='fraction'>17/20</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -112,42 +112,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import path from 'path';
 import fs from 'fs';
@@ -155,42 +155,42 @@ import parse from './parsers.js';
 import getDiff from './utils/diff.js';
 import format from './formatters/index.js';
 &nbsp;
-export const readFile = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(f</span>ilepath) =&gt; {</span>
+export const readFile = (filepath) =&gt; {
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const fullpath = <span class="cstat-no" title="statement not covered" >path.resolve(process.cwd(), filepath);</span>
-<span class="cstat-no" title="statement not covered" >    return fs.readFileSync(fullpath, 'utf-8');</span>
+  try {
+    const fullpath = path.resolve(process.cwd(), filepath);
+    return fs.readFileSync(fullpath, 'utf-8');
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    console.error(`Error leyendo archivo: ${filepath}`, err.message);</span>
 <span class="cstat-no" title="statement not covered" >    return null;</span>
   }
 };
 &nbsp;
-const getFullPath = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(f</span>ilepath) =&gt; <span class="cstat-no" title="statement not covered" >path.resolve(process.cwd(), filepath);</span></span>
+const getFullPath = (filepath) =&gt; path.resolve(process.cwd(), filepath);
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >genDiff(</span>path1, path2, formatType = <span class="branch-0 cbranch-no" title="branch not covered" >'stylish')</span> {
-  const fullPath1 = <span class="cstat-no" title="statement not covered" >getFullPath(path1);</span>
-  const fullPath2 = <span class="cstat-no" title="statement not covered" >getFullPath(path2);</span>
+export default function genDiff(path1, path2, formatType = 'stylish') {
+  const fullPath1 = getFullPath(path1);
+  const fullPath2 = getFullPath(path2);
 &nbsp;
-  const extension1 = <span class="cstat-no" title="statement not covered" >path.extname(fullPath1).slice(1).toLowerCase().trim();</span>
-  const extension2 = <span class="cstat-no" title="statement not covered" >path.extname(fullPath2).slice(1).toLowerCase().trim();</span>
+  const extension1 = path.extname(fullPath1).slice(1).toLowerCase().trim();
+  const extension2 = path.extname(fullPath2).slice(1).toLowerCase().trim();
 &nbsp;
 &nbsp;
-  const raw1 = <span class="cstat-no" title="statement not covered" >readFile(fullPath1);</span>
-  const raw2 = <span class="cstat-no" title="statement not covered" >readFile(fullPath2);</span>
+  const raw1 = readFile(fullPath1);
+  const raw2 = readFile(fullPath2);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!raw1 || !raw2) {</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!raw1 || !raw2) {
 <span class="cstat-no" title="statement not covered" >    return 'Error leyendo uno de los archivos.';</span>
   }
 &nbsp;
-  const data1 = <span class="cstat-no" title="statement not covered" >parse(raw1, extension1);</span>
-  const data2 = <span class="cstat-no" title="statement not covered" >parse(raw2, extension2);</span>
+  const data1 = parse(raw1, extension1);
+  const data2 = parse(raw2, extension2);
 &nbsp;
-  const diff = <span class="cstat-no" title="statement not covered" >getDiff(data1, data2);</span>
+  const diff = getDiff(data1, data2);
 &nbsp;
-  const formattedDiff = <span class="cstat-no" title="statement not covered" >format({ data: diff, formatType });</span>
+  const formattedDiff = format({ data: diff, formatType });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return formattedDiff;</span>
+  return formattedDiff;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -199,7 +199,7 @@ export default function <span class="fstat-no" title="function not covered" >gen
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-07T17:40:04.691Z
+                at 2025-06-09T22:58:25.313Z
             </div>
         <script src="../prettify.js"></script>
         <script>
