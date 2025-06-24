@@ -6,9 +6,11 @@ import format from './formatters/index.js';
 
 export const readFile = (filepath) => {
 
+
+
   try {
-    const fullpath = path.resolve(process.cwd(), filepath);
-    return fs.readFileSync(fullpath, 'utf-8');
+
+    return fs.readFileSync(filepath, 'utf-8');
   } catch (err) {
     console.error(`Error leyendo archivo: ${filepath}`, err.message);
     return null;
@@ -27,6 +29,8 @@ export default function genDiff(path1, path2, formatType = 'stylish') {
 
   const raw1 = readFile(fullPath1);
   const raw2 = readFile(fullPath2);
+
+
 
   if (!raw1 || !raw2) {
     return 'Error leyendo uno de los archivos.';

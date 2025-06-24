@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import  parse  from '../src/parsers.js';
+import parse from '../src/parsers.js';
 import path from "node:path";
 import getDiff from '../src/utils/diff.js';
+import format from '../src/formatters/index.js';
 
 import { readFile } from '../src/genDiff.js';
 
@@ -18,14 +19,22 @@ program
     const content1 = readFile(filepath1);
     const content2 = readFile(filepath2);
 
-    const extension1 = path.extname(filepath1);
-    const extension2 = path.extname(filepath2);
+
+
+    const extension1 = path.extname(filepath1).slice(1).toLowerCase().trim();;
+    const extension2 = path.extname(filepath2).slice(1).toLowerCase().trim();;
 
     const data1 = parse(content1, extension1);
     const data2 = parse(content2, extension2);
 
+
+
+
+
+
     const diff = getDiff(data1, data2);
-    console.log(diff);
+    const formatted = format({ data: diff, formatType: 'stylish' });
+    console.log(formatted);
   });
 
 program.parse();
