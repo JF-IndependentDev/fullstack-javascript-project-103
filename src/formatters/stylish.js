@@ -1,29 +1,50 @@
-const stylish = (diff) => {
-  const formatValue = (value) => {
-    return typeof value === 'object' && value !== null
-      ? JSON.stringify(value)
-      : JSON.stringify(value);
-  };
+import _ from 'lodash';
 
-  const lines = diff.flatMap(({ key, type, value, oldValue, newValue }) => {
+const indentSize = 4;
+const makeIndent = (depth, marker = ' ') =>
+  ' '.repeat(depth * indentSize - 2) + marker + ' ';
+const makeBracketIndent = (depth) =>
+  ' '.repeat((depth - 1) * indentSize);
+
+const stringify = (value, depth) => {
+  if (!_.isPlainObject(value)) {
+    return JSON.stringify(value);
+  }
+
+  const entries = Object.entries(value).map(
+    ([key, val]) =>
+      `${makeIndent(depth + 1)}${key}: ${stringify(val, depth + 1)}`
+  );
+
+  return ['{', ...entries, `${makeBracketIndent(depth + 1)}}`].join('\n');
+};
+
+const stylish = (tree, depth = 1) => {
+  const lines = tree.flatMap((node) => {
+    const {
+      key, type, value, oldValue, newValue, children,
+    } = node;
+
     switch (type) {
+      case 'nested':
+        return `${makeIndent(depth)}${key}: ${stylish(children, depth + 1)}`;
       case 'added':
-        return `  + ${key}: ${formatValue(value)}`;
+        return `${makeIndent(depth, '+')}${key}: ${stringify(value, depth)}`;
       case 'removed':
-        return `  - ${key}: ${formatValue(value)}`;
+        return `${makeIndent(depth, '-')}${key}: ${stringify(value, depth)}`;
+      case 'unchanged':
+        return `${makeIndent(depth)}${key}: ${stringify(value, depth)}`;
       case 'changed':
         return [
-          `  - ${key}: ${formatValue(oldValue)}`,
-          `  + ${key}: ${formatValue(newValue)}`,
+          `${makeIndent(depth, '-')}${key}: ${stringify(oldValue, depth)}`,
+          `${makeIndent(depth, '+')}${key}: ${stringify(newValue, depth)}`,
         ];
-      case 'unchanged':
-        return `    ${key}: ${formatValue(value)}`;
       default:
-        throw new Error(`Unknown type: ${type}`);
+        throw new Error(`Unknown node type: ${type}`);
     }
   });
 
-  return `{\n${lines.join('\n')}\n}`;
+  return ['{', ...lines, `${makeBracketIndent(depth)}}`].join('\n');
 };
 
 export default stylish;

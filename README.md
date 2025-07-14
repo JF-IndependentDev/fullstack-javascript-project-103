@@ -25,7 +25,8 @@ export CC_TEST_REPORTER_ID=fce67b3fb1835fcd7fa6b7486ed391d201c53cbbb96c0cf0d0194
 
 ## Asciinema
 
-👉 [Demostración en Asciinema](https://asciinema.org/a/h3pY7RaotYnCbFYF0Z4CtfThz)
+[Demostración de json](https://asciinema.org/a/h3pY7RaotYnCbFYF0Z4CtfThz)
+[Demostración de yml](https://asciinema.org/a/k7I2LboaBzGDZRX6ZJz2QGBer)
 
 ---
 

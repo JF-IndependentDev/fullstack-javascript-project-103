@@ -1,11 +1,14 @@
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import genDiff from '../src/genDiff.js';
+import { readFileSync } from 'fs';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => join(__dirname, '..', '__fixtures__', filename);
+const readFixture = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
 test('genDiff with JSON files', () => {
   const file1 = getFixturePath('file1.json');
@@ -37,6 +40,14 @@ test('genDiff with YAML files', () => {
 }`;
 
   expect(genDiff(file1, file2)).toBe(expected);
+});
+
+test('genDiff with nested JSON files (stylish)', () => {
+  const file1 = getFixturePath('nestFile1.json');
+  const file2 = getFixturePath('nestFile2.json');
+  const expected = readFixture('expectedStylish.txt');
+
+  expect(genDiff(file1, file2, 'stylish')).toBe(expected.trim());
 });
 
 

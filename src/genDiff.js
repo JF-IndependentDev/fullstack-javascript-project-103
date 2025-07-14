@@ -1,8 +1,9 @@
 import path from 'path';
 import fs from 'fs';
 import parse from './parsers.js';
-import getDiff from './utils/diff.js';
+//import getDiff from './utils/diff.js';
 import format from './formatters/index.js';
+import buildDiffTree from './diffTree.js';
 
 export const readFile = (filepath) => {
 
@@ -15,7 +16,7 @@ export const readFile = (filepath) => {
     console.error(`Error leyendo archivo: ${filepath}`, err.message);
     return null;
   }
-};
+};  
 
 const getFullPath = (filepath) => path.resolve(process.cwd(), filepath);
 
@@ -39,9 +40,10 @@ export default function genDiff(path1, path2, formatType = 'stylish') {
   const data1 = parse(raw1, extension1);
   const data2 = parse(raw2, extension2);
 
-  const diff = getDiff(data1, data2);
+//  const diff = getDiff(data1, data2);
 
-  const formattedDiff = format({ data: diff, formatType });
+    const diffTree = buildDiffTree(data1, data2);
+    return format(diffTree, formatType);
 
-  return formattedDiff;
+
 }
