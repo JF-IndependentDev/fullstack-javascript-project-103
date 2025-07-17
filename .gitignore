@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Coverage reports
+coverage/
+
+# Test output and logs
+*.log
+
+# Fixtures outputs
+__fixtures__/*.txt
+
+# System/IDE files
+.DS_Store
+.env
+
+# Jest cache
+jest-cache/
+jest-test-results.json
+
+# asciinema recording
+demo.cast
+
