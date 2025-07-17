@@ -57,3 +57,14 @@ test('genDiff with nested JSON files (plain)', () => {
 
   expect(genDiff(file1, file2, 'plain')).toBe(expected.trim());
 });
+
+test('gendiff with nested JSON files (json format)', () => {
+  const filepath1 = getFixturePath('nestFile1.json');
+  const filepath2 = getFixturePath('nestFile2.json');
+  const result = genDiff(filepath1, filepath2, 'json');
+  const parsed = JSON.parse(result);
+
+  expect(parsed).toBeInstanceOf(Array);
+  expect(parsed[0]).toHaveProperty('key');
+  expect(parsed[0]).toHaveProperty('type');
+});
