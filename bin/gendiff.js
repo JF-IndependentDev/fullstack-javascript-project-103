@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import parse from '../src/parsers.js';
-import path from 'node:path';
-import { readFile } from '../src/genDiff.js';
-import format from '../src/formatters/index.js';
-import buildDiffTree from '../src/diffTree.js';
+import genDiff from '../src/index.js';
+//import parse from '../src/parsers.js';
+//import path from 'node:path';
+//import { readFile } from '../src/genDiff.js';
+//import format from '../src/formatters/index.js';
+//import buildDiffTree from '../src/diffTree.js';
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -14,19 +15,23 @@ program
   .argument('<filepath2>', 'second file path')
   .option('-f, --format <type>', 'output format', 'stylish')
   .action((filepath1, filepath2, options) => {
-    const content1 = readFile(filepath1);
-    const content2 = readFile(filepath2);
+    
+      const diff = genDiff(filepath1, filepath2, options.format);
+    console.log(diff);
+    
+    //const content1 = readFile(filepath1);
+   // const content2 = readFile(filepath2);
 
-    const extension1 = path.extname(filepath1).slice(1).toLowerCase();
-    const extension2 = path.extname(filepath2).slice(1).toLowerCase();
+   // const extension1 = path.extname(filepath1).slice(1).toLowerCase();
+   // const extension2 = path.extname(filepath2).slice(1).toLowerCase();
 
-    const data1 = parse(content1, extension1);
-    const data2 = parse(content2, extension2);
+   // const data1 = parse(content1, extension1);
+   // const data2 = parse(content2, extension2);
 
-    const diffTree = buildDiffTree(data1, data2);
+   // const diffTree = buildDiffTree(data1, data2);
 
-    const formatted = format(diffTree, options.format);
-    console.log(formatted);
+    //const formatted = format(diffTree, options.format);
+  //  console.log(formatted);
   });
 
 program.parse();
