@@ -7,10 +7,11 @@ const makeBracketIndent = (depth) =>
   ' '.repeat((depth - 1) * indentSize);
 
 const stringify = (value, depth) => {
+  if (_.isString(value)) {
+    return `"${value}"`; 
+  }
+
   if (!_.isPlainObject(value)) {
-    if (typeof value === 'string') {
-      return `"${value}"`;
-    }
     return String(value);
   }
 
@@ -21,6 +22,7 @@ const stringify = (value, depth) => {
 
   return ['{', ...entries, `${makeBracketIndent(depth + 1)}}`].join('\n');
 };
+
 
 const stylish = (tree, depth = 1) => {
   const lines = tree.flatMap((node) => {

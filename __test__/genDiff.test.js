@@ -3,7 +3,6 @@ import { dirname, join } from 'path';
 import genDiff from '../src/genDiff.js';
 import { readFileSync } from 'fs';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -23,7 +22,7 @@ test('genDiff with JSON files', () => {
   + verbose: true
 }`;
 
-  expect(genDiff(file1, file2)).toBe(expected);
+  expect(genDiff(file1, file2)).toEqual(expected); // 👈 Cambiado
 });
 
 test('genDiff with YAML files', () => {
@@ -39,7 +38,7 @@ test('genDiff with YAML files', () => {
   + verbose: true
 }`;
 
-  expect(genDiff(file1, file2)).toBe(expected);
+  expect(genDiff(file1, file2)).toEqual(expected); // 👈 Cambiado
 });
 
 test('genDiff with nested JSON files (stylish)', () => {
@@ -47,7 +46,7 @@ test('genDiff with nested JSON files (stylish)', () => {
   const file2 = getFixturePath('nestFile2.json');
   const expected = readFixture('expectedStylish.txt');
 
-  expect(genDiff(file1, file2, 'stylish')).toBe(expected.trim());
+  expect(genDiff(file1, file2, 'stylish')).toEqual(expected.trim()); // 👈 Cambiado
 });
 
 test('genDiff with nested JSON files (plain)', () => {
@@ -55,7 +54,7 @@ test('genDiff with nested JSON files (plain)', () => {
   const file2 = getFixturePath('nestFile2.json');
   const expected = readFixture('expectedPlain.txt');
 
-  expect(genDiff(file1, file2, 'plain')).toBe(expected.trim());
+  expect(genDiff(file1, file2, 'plain')).toEqual(expected.trim()); // 👈 Cambiado
 });
 
 test('gendiff with nested JSON files (json format)', () => {
