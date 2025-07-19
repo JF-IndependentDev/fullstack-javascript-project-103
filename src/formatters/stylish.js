@@ -8,7 +8,10 @@ const makeBracketIndent = (depth) =>
 
 const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
-    return JSON.stringify(value);
+    if (typeof value === 'string') {
+      return `"${value}"`;
+    }
+    return String(value);
   }
 
   const entries = Object.entries(value).map(
