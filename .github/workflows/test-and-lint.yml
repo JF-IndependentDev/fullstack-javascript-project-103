@@ -34,13 +34,14 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
-      - name: Run tests
-        run: npm test
+      - name: Run tests with coverage
+        run: npm test -- --coverage
 
-      - name: Run coverage
-        run: npm run coverage
+      - name: Check if coverage file exists
+        run: ls -l coverage/lcov.info
 
       - name: Notify CodeClimate after build
-        run: ./cc-test-reporter after-build --debug --exit-code $?
+        run: |
+          ./cc-test-reporter after-build --debug --exit-code $? || echo "⚠️ Code Climate failed but continuing build"
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
