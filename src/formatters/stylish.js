@@ -7,9 +7,16 @@ const makeBracketIndent = (depth) =>
   ' '.repeat((depth - 1) * indentSize);
 
 const stringify = (value, depth) => {
-  if (_.isString(value)) {
-    return `"${value}"`; 
+  if (!_.isPlainObject(value)) {
+    if (typeof value === 'string') {
+      return `"${value}"`; 
+    }
+    if (value === null) {
+      return 'null';
+    }
+    return String(value);
   }
+
 
   if (!_.isPlainObject(value)) {
     return String(value);
