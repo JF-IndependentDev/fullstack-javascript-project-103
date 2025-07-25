@@ -9,16 +9,11 @@ const makeBracketIndent = (depth) =>
 const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
     if (typeof value === 'string') {
-      return `"${value}"`; 
+      return value; // ← sin comillas
     }
     if (value === null) {
       return 'null';
     }
-    return String(value);
-  }
-
-
-  if (!_.isPlainObject(value)) {
     return String(value);
   }
 
@@ -29,7 +24,6 @@ const stringify = (value, depth) => {
 
   return ['{', ...entries, `${makeBracketIndent(depth + 1)}}`].join('\n');
 };
-
 
 const stylish = (tree, depth = 1) => {
   const lines = tree.flatMap((node) => {
