@@ -16,14 +16,24 @@ const buildDiffTree = (obj1, obj2) => {
     }
 
     if (_.isPlainObject(val1) && _.isPlainObject(val2)) {
-      return  { key, type: 'nested', children: buildDiffTree(val1, val2) };
+      return {
+        key,
+        type: 'nested',
+        children: buildDiffTree(val1, val2),
+      };
     }
 
     if (!_.isEqual(val1, val2)) {
-      return { key, type: 'changed', oldValue: val1, newValue: val2 };
+      return {
+        key,
+        type: 'changed',
+        oldValue: val1,
+        newValue: val2,
+      };
     }
 
     return { key, type: 'unchanged', value: val1 };
   });
 };
-export default buildDiffTree
+
+export default buildDiffTree;

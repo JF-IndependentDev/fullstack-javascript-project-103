@@ -1,15 +1,15 @@
 import _ from 'lodash';
 
 const indentSize = 4;
-const makeIndent = (depth, marker = ' ') =>
-  ' '.repeat(depth * indentSize - 2) + marker + ' ';
-const makeBracketIndent = (depth) =>
-  ' '.repeat((depth - 1) * indentSize);
+const makeIndent = (depth, marker = ' ') => {
+  return ' '.repeat(depth * indentSize - 2) + `${marker} `;
+};
+const makeBracketIndent = (depth) => ' '.repeat((depth - 1) * indentSize);
 
 const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
     if (typeof value === 'string') {
-      return value; // ← sin comillas
+      return `"${value}"`;
     }
     if (value === null) {
       return 'null';
@@ -17,10 +17,9 @@ const stringify = (value, depth) => {
     return String(value);
   }
 
-  const entries = Object.entries(value).map(
-    ([key, val]) =>
-      `${makeIndent(depth + 1)}${key}: ${stringify(val, depth + 1)}`
-  );
+  const entries = Object.entries(value).map(([key, val]) => {
+    return `${makeIndent(depth + 1)}${key}: ${stringify(val, depth + 1)}`;
+  });
 
   return ['{', ...entries, `${makeBracketIndent(depth + 1)}}`].join('\n');
 };
