@@ -1,35 +1,41 @@
-import _ from 'lodash';
+import {
+  ADD_VALUE,
+  CHANGED_VALUE,
+  DELETED_VALUE,
+  NESTED_VALUE,
+} from '../constants.js';
 
 const formatValue = (value) => {
-  if (_.isPlainObject(value)) return '[complex value]';
-  if (typeof value === 'string') return `"${value}"`;
+  if (value === null) return 'null';
+  if (typeof value === 'string') return `'${value}'`;
+  if (typeof value === 'object') return '[complex value]';
   return String(value);
 };
 
-const plain = (tree, parentPath = '') => {
-  const lines = tree.flatMap((node) => {
-    const propertyPath = parentPath ? `${parentPath}.${node.key}` : node.key;
+const plain = (node, parentPath = '') => {
+  const lines = node.children.map((child) => {
+    const propertyPath = parentPath ? `${parentPath}.${child.key}` : child.key;
 
-    switch (node.type) {
-      case 'nested':
-        return plain(node.children, propertyPath);
+    switch (child.type) {
+      case NESTED_VALUE:
+        return plain(child, propertyPath);
 
-      case 'added':
-        return `Property '${propertyPath}' was added with value: ${formatValue(node.value)}`;
+      case ADD_VALUE:
+        return `Property '${propertyPath}' was added with value: ${formatValue(child.value)}`;
 
-      case 'removed':
+      case DELETED_VALUE:
         return `Property '${propertyPath}' was removed`;
 
-      case 'changed':
-        return `Property '${propertyPath}' was updated. From ${formatValue(node.oldValue)} to ${formatValue(node.newValue)}`;
+      case CHANGED_VALUE:
+        return `Property '${propertyPath}' was updated. From ${formatValue(child.value1)} to ${formatValue(child.value2)}`;
 
       case 'unchanged':
         return [];
 
       default:
-        throw new Error(`Unknown node type: ${node.type}`);
+        throw new Error(`Unknown node type: ${child.type}`);
     }
-  });
+  }).flat();
 
   return lines.join('\n');
 };

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -102,7 +102,28 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">17x</span>
@@ -112,11 +133,11 @@
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
@@ -140,44 +161,62 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
+import {
+  UNCHANGED_VALUE,
+  ADD_VALUE,
+  CHANGED_VALUE,
+  DELETED_VALUE,
+  NESTED_VALUE,
+  ROOT_VALUE,
+} from './constants.js';
 &nbsp;
-const buildDiffTree = (obj1, obj2) =&gt; {
-  const keys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
+const getDiff = (data1, data2) =&gt; {
+  const keys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
 &nbsp;
   return keys.map((key) =&gt; {
-    const val1 = obj1[key];
-    const val2 = obj2[key];
+    const value1 = data1[key];
+    const value2 = data2[key];
 &nbsp;
-    if (!_.has(obj2, key)) {
-      return { key, type: 'removed', value: val1 };
+    if (!_.has(data1, key)) {
+      return { key, type: ADD_VALUE, value: value2 };
     }
 &nbsp;
-    if (!_.has(obj1, key)) {
-      return { key, type: 'added', value: val2 };
+    if (!_.has(data2, key)) {
+      return { key, type: DELETED_VALUE, value: value1 };
     }
 &nbsp;
-    if (_.isPlainObject(val1) &amp;&amp; _.isPlainObject(val2)) {
+    if (_.isPlainObject(value1) &amp;&amp; _.isPlainObject(value2)) {
       return {
         key,
-        type: 'nested',
-        children: buildDiffTree(val1, val2),
+        type: NESTED_VALUE,
+        children: getDiff(value1, value2),
       };
     }
 &nbsp;
-    if (!_.isEqual(val1, val2)) {
+    if (!_.isEqual(value1, value2)) {
       return {
         key,
-        type: 'changed',
-        oldValue: val1,
-        newValue: val2,
+        type: CHANGED_VALUE,
+        value1,
+        value2,
       };
     }
 &nbsp;
-    return { key, type: 'unchanged', value: val1 };
+    return { key, type: UNCHANGED_VALUE, value: value1 };
   });
 };
+&nbsp;
+const buildDiffTree = (data1, data2) =&gt; ({
+  type: ROOT_VALUE,
+  children: getDiff(data1, data2),
+});
 &nbsp;
 export default buildDiffTree;
 &nbsp;</pre></td></tr></table></pre>
@@ -187,7 +226,7 @@ export default buildDiffTree;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-26T11:57:45.870Z
+                at 2025-07-29T21:59:50.360Z
             </div>
         <script src="../prettify.js"></script>
         <script>

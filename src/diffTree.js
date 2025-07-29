@@ -1,39 +1,52 @@
 import _ from 'lodash';
+import {
+  UNCHANGED_VALUE,
+  ADD_VALUE,
+  CHANGED_VALUE,
+  DELETED_VALUE,
+  NESTED_VALUE,
+  ROOT_VALUE,
+} from './constants.js';
 
-const buildDiffTree = (obj1, obj2) => {
-  const keys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
+const getDiff = (data1, data2) => {
+  const keys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
 
   return keys.map((key) => {
-    const val1 = obj1[key];
-    const val2 = obj2[key];
+    const value1 = data1[key];
+    const value2 = data2[key];
 
-    if (!_.has(obj2, key)) {
-      return { key, type: 'removed', value: val1 };
+    if (!_.has(data1, key)) {
+      return { key, type: ADD_VALUE, value: value2 };
     }
 
-    if (!_.has(obj1, key)) {
-      return { key, type: 'added', value: val2 };
+    if (!_.has(data2, key)) {
+      return { key, type: DELETED_VALUE, value: value1 };
     }
 
-    if (_.isPlainObject(val1) && _.isPlainObject(val2)) {
+    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
       return {
         key,
-        type: 'nested',
-        children: buildDiffTree(val1, val2),
+        type: NESTED_VALUE,
+        children: getDiff(value1, value2),
       };
     }
 
-    if (!_.isEqual(val1, val2)) {
+    if (!_.isEqual(value1, value2)) {
       return {
         key,
-        type: 'changed',
-        oldValue: val1,
-        newValue: val2,
+        type: CHANGED_VALUE,
+        value1,
+        value2,
       };
     }
 
-    return { key, type: 'unchanged', value: val1 };
+    return { key, type: UNCHANGED_VALUE, value: value1 };
   });
 };
+
+const buildDiffTree = (data1, data2) => ({
+  type: ROOT_VALUE,
+  children: getDiff(data1, data2),
+});
 
 export default buildDiffTree;

@@ -35,8 +35,6 @@ export default function genDiff(path1, path2, formatType = 'stylish') {
   const data1 = parse(raw1, extension1);
   const data2 = parse(raw2, extension2);
 
-  //  const diff = getDiff(data1, data2);
-
   const diffTree = buildDiffTree(data1, data2);
   return format(diffTree, formatType);
 

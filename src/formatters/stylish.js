@@ -1,55 +1,65 @@
-import _ from 'lodash';
+import {
+  ADD_VALUE,
+  CHANGED_VALUE,
+  DELETED_VALUE,
+  NESTED_VALUE,
+  UNCHANGED_VALUE,
+  ROOT,
+} from '../constants.js';
 
-const indentSize = 4;
-const makeIndent = (depth, marker = ' ') => {
-  return ' '.repeat(depth * indentSize - 2) + `${marker} `;
+const makeIndent = (depth, symbol = ' ') => {
+  const baseIndent = '    '.repeat(depth);
+  return `${baseIndent.slice(0, -2)}${symbol} `;
 };
-const makeBracketIndent = (depth) => ' '.repeat((depth - 1) * indentSize);
 
 const stringify = (value, depth) => {
-  if (!_.isPlainObject(value)) {
-    if (typeof value === 'string') {
-      return `"${value}"`;
-    }
-    if (value === null) {
-      return 'null';
-    }
+  if (typeof value !== 'object' || value === null) {
     return String(value);
   }
 
-  const entries = Object.entries(value).map(([key, val]) => {
+  const entries = Object.entries(value);
+  const lines = entries.map(([key, val]) => {
     return `${makeIndent(depth + 1)}${key}: ${stringify(val, depth + 1)}`;
   });
 
-  return ['{', ...entries, `${makeBracketIndent(depth + 1)}}`].join('\n');
+  return `{\n${lines.join('\n')}\n${makeIndent(depth)}}`;
 };
 
-const stylish = (tree, depth = 1) => {
-  const lines = tree.flatMap((node) => {
+const stylish = (node, depth = 1) => {
+  if (node.type === ROOT) {
+    return stylish({ children: node.children }, depth); 
+  }
+
+  const lines = node.children.map((child) => {
     const {
-      key, type, value, oldValue, newValue, children,
-    } = node;
+      key, type, value, value1, value2, children,
+    } = child;
 
     switch (type) {
-      case 'nested':
-        return `${makeIndent(depth)}${key}: ${stylish(children, depth + 1)}`;
-      case 'added':
+      case NESTED_VALUE:
+        return `${makeIndent(depth)}${key}: ${stylish({ children }, depth + 1)}`;
+
+      case ADD_VALUE:
         return `${makeIndent(depth, '+')}${key}: ${stringify(value, depth)}`;
-      case 'removed':
+
+      case DELETED_VALUE:
         return `${makeIndent(depth, '-')}${key}: ${stringify(value, depth)}`;
-      case 'unchanged':
+
+      case UNCHANGED_VALUE:
         return `${makeIndent(depth)}${key}: ${stringify(value, depth)}`;
-      case 'changed':
+
+      case CHANGED_VALUE:
         return [
-          `${makeIndent(depth, '-')}${key}: ${stringify(oldValue, depth)}`,
-          `${makeIndent(depth, '+')}${key}: ${stringify(newValue, depth)}`,
+          `${makeIndent(depth, '-')}${key}: ${stringify(value1, depth)}`,
+          `${makeIndent(depth, '+')}${key}: ${stringify(value2, depth)}`,
         ];
+
       default:
         throw new Error(`Unknown node type: ${type}`);
     }
-  });
+  }).flat();
 
-  return ['{', ...lines, `${makeBracketIndent(depth)}}`].join('\n');
+  return `{\n${lines.join('\n')}\n${makeIndent(depth - 1)}}`;
 };
 
 export default stylish;

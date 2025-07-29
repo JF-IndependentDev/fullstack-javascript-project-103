@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.11% </span>
+                <span class="strong">94.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.3% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -100,12 +100,24 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -137,38 +149,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  ADD_VALUE,
+  CHANGED_VALUE,
+  DELETED_VALUE,
+  NESTED_VALUE,
+} from '../constants.js';
 &nbsp;
 const formatValue = (value) =&gt; {
-  if (_.isPlainObject(value)) return '[complex value]';
-  if (typeof value === 'string') return `"${value}"`;
+  if (value === null) return 'null';
+  if (typeof value === 'string') return `'${value}'`;
+  if (typeof value === 'object') return '[complex value]';
   return String(value);
 };
 &nbsp;
-const plain = (tree, parentPath = '') =&gt; {
-  const lines = tree.flatMap((node) =&gt; {
-    const propertyPath = parentPath ? `${parentPath}.${node.key}` : node.key;
+const plain = (node, parentPath = '') =&gt; {
+  const lines = node.children.map((child) =&gt; {
+    const propertyPath = parentPath ? `${parentPath}.${child.key}` : child.key;
 &nbsp;
-    switch (node.type) {
-      case 'nested':
-        return plain(node.children, propertyPath);
+    switch (child.type) {
+      case NESTED_VALUE:
+        return plain(child, propertyPath);
 &nbsp;
-      case 'added':
-        return `Property '${propertyPath}' was added with value: ${formatValue(node.value)}`;
+      case ADD_VALUE:
+        return `Property '${propertyPath}' was added with value: ${formatValue(child.value)}`;
 &nbsp;
-      case 'removed':
+      case DELETED_VALUE:
         return `Property '${propertyPath}' was removed`;
 &nbsp;
-      case 'changed':
-        return `Property '${propertyPath}' was updated. From ${formatValue(node.oldValue)} to ${formatValue(node.newValue)}`;
+      case CHANGED_VALUE:
+        return `Property '${propertyPath}' was updated. From ${formatValue(child.value1)} to ${formatValue(child.value2)}`;
 &nbsp;
       case 'unchanged':
         return [];
 &nbsp;
 <span class="branch-5 cbranch-no" title="branch not covered" >      default:</span>
-<span class="cstat-no" title="statement not covered" >        throw new Error(`Unknown node type: ${node.type}`);</span>
+<span class="cstat-no" title="statement not covered" >        throw new Error(`Unknown node type: ${child.type}`);</span>
     }
-  });
+  }).flat();
 &nbsp;
   return lines.join('\n');
 };
@@ -181,7 +199,7 @@ export default plain;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-26T11:57:45.870Z
+                at 2025-07-29T21:59:50.360Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
