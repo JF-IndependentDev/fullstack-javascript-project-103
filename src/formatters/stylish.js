@@ -63,7 +63,7 @@ const stylish = (node, depth = 1) => {
     }
   }).flat();
 
-  return `{\n${lines.join('\n')}\n${makeIndent(depth - 1)}}`;
+  return `{\n${lines.join('\n')}\n${'    '.repeat(depth - 1)}}`;
 };
 
 export default stylish;
