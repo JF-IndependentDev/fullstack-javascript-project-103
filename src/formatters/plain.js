@@ -7,7 +7,7 @@ import {
 
 const formatValue = (value) => {
   if (value === null) return 'null';
-  if (typeof value === 'string') return `'${value}'`;
+  if (typeof value === 'string') return `"${value}"`; 
   if (typeof value === 'object') return '[complex value]';
   return String(value);
 };

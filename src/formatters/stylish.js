@@ -14,8 +14,12 @@ const makeIndent = (depth, symbol = ' ') => {
 
 const stringify = (value, depth) => {
   if (typeof value !== 'object' || value === null) {
-    return String(value);
+  if (typeof value === 'string') {
+    return `"${value}"`;
   }
+  return String(value);
+}
+
 
   const entries = Object.entries(value);
   const lines = entries.map(([key, val]) => {
