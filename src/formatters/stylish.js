@@ -12,12 +12,22 @@ const makeIndent = (depth, symbol = ' ') => {
   return `${baseIndent.slice(0, -2)}${symbol} `;
 };
 
+
+const needsQuotes = (str) => {
+  return (
+    str === '' ||
+    /\s/.test(str) ||
+    /[:{}[\],&*#?]|^-|^~$|^(null|true|false)$/i.test(str)
+  );
+};
+
 const stringify = (value, depth) => {
-  if (typeof value === 'string') {
-    
-    return `"${value}"`;
-  }
   if (typeof value !== 'object' || value === null) {
+    if (typeof value === 'string') {
+
+      return `"${value}"`;
+
+    }
     return String(value);
   }
 
