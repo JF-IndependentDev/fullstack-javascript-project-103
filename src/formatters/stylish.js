@@ -13,13 +13,13 @@ const makeIndent = (depth, symbol = ' ') => {
 };
 
 const stringify = (value, depth) => {
+  if (typeof value !== 'object' || value === null) {
   if (typeof value === 'string') {
-    
     return `"${value}"`;
   }
-  if (typeof value !== 'object' || value === null) {
-    return String(value);
-  }
+  return String(value);
+}
+
 
   const entries = Object.entries(value);
   const lines = entries.map(([key, val]) => {
@@ -31,7 +31,7 @@ const stringify = (value, depth) => {
 
 const stylish = (node, depth = 1) => {
   if (node.type === ROOT) {
-    return stylish({ children: node.children }, depth);
+    return stylish({ children: node.children }, depth); 
   }
 
   const lines = node.children.map((child) => {

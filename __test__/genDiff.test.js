@@ -23,7 +23,7 @@ test('genDiff with JSON files', () => {
   + verbose: true
 }`;
 
-  expect(genDiff(file1, file2)).toEqual(expected); 
+  expect(genDiff(file1, file2)).toEqual(expected); // 👈 Cambiado
 });
 
 test('genDiff with YAML files', () => {
