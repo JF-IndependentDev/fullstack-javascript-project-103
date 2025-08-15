@@ -12,7 +12,6 @@ const makeIndent = (depth, symbol = ' ') => {
   return `${baseIndent.slice(0, -2)}${symbol} `;
 };
 
-
 const needsQuotes = (str) => {
   return (
     str === '' ||
@@ -25,8 +24,7 @@ const stringify = (value, depth) => {
   if (typeof value !== 'object' || value === null) {
     if (typeof value === 'string') {
 
-      return `"${value}"`;
-
+      return needsQuotes(value) ? `"${value}"` : value;
     }
     return String(value);
   }
