@@ -1,3 +1,3 @@
 
 lint:
-	npm run lint
+	npm run lint -- --max-warnings=0
