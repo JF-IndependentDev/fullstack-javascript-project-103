@@ -16,14 +16,14 @@ test('genDiff with JSON files', () => {
 
   const expected = `{
   - follow: false
-    host: "codica.io"
-  - proxy: "123.234.53.22"
+    host: codica.io
+  - proxy: 123.234.53.22
   - timeout: 50
   + timeout: 20
   + verbose: true
 }`;
 
-  expect(genDiff(file1, file2)).toEqual(expected); // 👈 Cambiado
+  expect(genDiff(file1, file2)).toEqual(expected);
 });
 
 test('genDiff with YAML files', () => {
@@ -32,14 +32,14 @@ test('genDiff with YAML files', () => {
 
   const expected = `{
   - follow: false
-    host: "codica.io"
-  - proxy: "123.234.53.22"
+    host: codica.io
+  - proxy: 123.234.53.22
   - timeout: 50
   + timeout: 20
   + verbose: true
 }`;
 
-  expect(genDiff(file1, file2)).toEqual(expected); // 👈 Cambiado
+  expect(genDiff(file1, file2)).toEqual(expected);
 });
 
 test('genDiff with nested JSON files (stylish)', () => {
@@ -47,7 +47,7 @@ test('genDiff with nested JSON files (stylish)', () => {
   const file2 = getFixturePath('nestFile2.json');
   const expected = readFixture('expectedStylish.txt');
 
-  expect(genDiff(file1, file2, 'stylish')).toEqual(expected.trim()); // 👈 Cambiado
+  expect(genDiff(file1, file2, 'stylish')).toEqual(expected.trim()); 
 });
 
 test('genDiff with nested JSON files (plain)', () => {
@@ -55,7 +55,7 @@ test('genDiff with nested JSON files (plain)', () => {
   const file2 = getFixturePath('nestFile2.json');
   const expected = readFixture('expectedPlain.txt');
 
-  expect(genDiff(file1, file2, 'plain')).toEqual(expected.trim()); // 👈 Cambiado
+  expect(genDiff(file1, file2, 'plain')).toEqual(expected.trim());
 });
 
 test('gendiff with nested JSON files (json format)', () => {
