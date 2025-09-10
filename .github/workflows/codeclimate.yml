@@ -16,7 +16,8 @@ jobs:
 
       - name: Install CodeClimate test reporter
         run: |
-          curl -L -o ./cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 \
+            --output ./cc-test-reporter
           chmod +x ./cc-test-reporter
 
       - name: Notify CodeClimate before build

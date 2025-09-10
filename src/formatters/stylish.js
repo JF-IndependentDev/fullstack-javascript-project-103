@@ -9,7 +9,7 @@ import {
 } from '../constants.js';
 
 
-const getIndentation = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount - 2);
+const getIndentation = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount);
 
 
 const formatPrimitive = (val) => {
@@ -49,18 +49,18 @@ const renderFunctions = {
   },
 
   [ADD_VALUE]: (node, depth) =>
-    `${getIndentation(depth)}+ ${node.key}: ${formatValue(node.value, depth)}`,
+    `${getIndentation(depth - 1)}+ ${node.key}: ${formatValue(node.value, depth)}`,
 
   [DELETED_VALUE]: (node, depth) =>
-    `${getIndentation(depth)}- ${node.key}: ${formatValue(node.value, depth)}`,
+    `${getIndentation(depth - 1)}- ${node.key}: ${formatValue(node.value, depth)}`,
 
   [UNCHANGED_VALUE]: (node, depth) =>
-    `${getIndentation(depth)}  ${node.key}: ${formatValue(node.value, depth)}`,
+    `${getIndentation(depth - 1)}  ${node.key}: ${formatValue(node.value, depth)}`,
 
   [CHANGED_VALUE]: (node, depth) => {
     const { key, value1, value2 } = node;
-    const formattedValue1 = `${getIndentation(depth)}- ${key}: ${formatValue(value1, depth)}`;
-    const formattedValue2 = `${getIndentation(depth)}+ ${key}: ${formatValue(value2, depth)}`;
+    const formattedValue1 = `${getIndentation(depth - 1)}- ${key}: ${formatValue(value1, depth)}`;
+    const formattedValue2 = `${getIndentation(depth - 1)}+ ${key}: ${formatValue(value2, depth)}`;
     return [formattedValue1, formattedValue2].join('\n');
   },
 };
