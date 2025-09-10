@@ -8,7 +8,9 @@ import {
   UNCHANGED_VALUE,
 } from '../constants.js';
 
+
 const getIndentation = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount - 2);
+
 
 const formatPrimitive = (val) => {
   if (val === null) return 'null';
@@ -25,28 +27,35 @@ const formatObject = (obj, depth) => {
       : formatPrimitive(value);
     return `${getIndentation(depth + 1)}  ${key}: ${formattedValue}`;
   });
-  return `{\n${entries.join('\n')}\n${getIndentation(depth)}  }`;
+  return `{\n${entries.join('\n')}\n${getIndentation(depth)}}`;
 };
+
 
 const formatValue = (data, depth) => {
   if (!_.isPlainObject(data)) return formatPrimitive(data);
   return formatObject(data, depth);
 };
 
+
 const renderFunctions = {
   [ROOT_VALUE]: ({ children }, depth, iterate) => {
-    const renderedChildren = children.flatMap((child) => iterate(child, depth + 1));
+    const renderedChildren = children.map((child) => iterate(child, depth + 1));
     return `{\n${renderedChildren.join('\n')}\n}`;
   },
 
   [NESTED_VALUE]: ({ key, children }, depth, iterate) => {
-    const nestedChildren = children.flatMap((child) => iterate(child, depth + 1));
-    return `${getIndentation(depth)}  ${key}: {\n${nestedChildren.join('\n')}\n${getIndentation(depth)}  }`;
+    const nestedChildren = children.map((child) => iterate(child, depth + 1));
+    return `${getIndentation(depth)}  ${key}: {\n${nestedChildren.join('\n')}\n${getIndentation(depth)}}`;
   },
 
-  [ADD_VALUE]: (node, depth) => `${getIndentation(depth)}+ ${node.key}: ${formatValue(node.value, depth)}`,
-  [DELETED_VALUE]: (node, depth) => `${getIndentation(depth)}- ${node.key}: ${formatValue(node.value, depth)}`,
-  [UNCHANGED_VALUE]: (node, depth) => `${getIndentation(depth)}  ${node.key}: ${formatValue(node.value, depth)}`,
+  [ADD_VALUE]: (node, depth) =>
+    `${getIndentation(depth)}+ ${node.key}: ${formatValue(node.value, depth)}`,
+
+  [DELETED_VALUE]: (node, depth) =>
+    `${getIndentation(depth)}- ${node.key}: ${formatValue(node.value, depth)}`,
+
+  [UNCHANGED_VALUE]: (node, depth) =>
+    `${getIndentation(depth)}  ${node.key}: ${formatValue(node.value, depth)}`,
 
   [CHANGED_VALUE]: (node, depth) => {
     const { key, value1, value2 } = node;
@@ -56,9 +65,10 @@ const renderFunctions = {
   },
 };
 
+
 const renderAST = (ast) => {
   const iterate = (node, depth) => renderFunctions[node.type](node, depth, iterate);
-  return iterate(ast, 0);
+  return iterate(ast, 1); 
 };
 
 export default renderAST;
