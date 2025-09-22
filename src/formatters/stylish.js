@@ -12,7 +12,7 @@ const getIndentation = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCoun
 
 const formatPrimitive = (val) => {
   if (val === null) return 'null';
-  if (typeof val === 'string') return val === '' ? '""' : val;
+  if (typeof val === 'string') return val;
   if (typeof val === 'boolean') return val ? 'true' : 'false';
   return String(val);
 };
