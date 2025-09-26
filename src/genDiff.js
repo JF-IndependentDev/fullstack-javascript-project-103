@@ -22,11 +22,8 @@ export default function genDiff(path1, path2, formatType = 'stylish') {
   const extension1 = path.extname(fullPath1).slice(1).toLowerCase().trim();
   const extension2 = path.extname(fullPath2).slice(1).toLowerCase().trim();
 
-
   const raw1 = readFile(fullPath1);
   const raw2 = readFile(fullPath2);
-
-
 
   if (!raw1 || !raw2) {
     return 'Error leyendo uno de los archivos.';
@@ -37,6 +34,5 @@ export default function genDiff(path1, path2, formatType = 'stylish') {
 
   const diffTree = buildDiffTree(data1, data2);
   return format(diffTree, formatType);
-
 
 }

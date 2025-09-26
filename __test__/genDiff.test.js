@@ -3,7 +3,6 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import genDiff from '../src/genDiff.js';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -47,7 +46,7 @@ test('genDiff with nested JSON files (stylish)', () => {
   const file2 = getFixturePath('nestFile2.json');
   const expected = readFixture('expectedStylish.txt');
 
-  expect(genDiff(file1, file2, 'stylish')).toEqual(expected.trim()); 
+  expect(genDiff(file1, file2, 'stylish')).toEqual(expected.trim());
 });
 
 test('genDiff with nested JSON files (plain)', () => {

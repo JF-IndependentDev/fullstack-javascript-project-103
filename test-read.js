@@ -11,7 +11,3 @@ try {
 } catch (e) {
   console.error('Error leyendo archivos:', e.message);
 }
-
-
-
-
