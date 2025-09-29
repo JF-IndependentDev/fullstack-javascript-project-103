@@ -34,5 +34,4 @@ export default function genDiff(path1, path2, formatType = 'stylish') {
 
   const diffTree = buildDiffTree(data1, data2);
   return format(diffTree, formatType);
-
 }

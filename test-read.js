@@ -1,4 +1,4 @@
-import { readFile } from './src/parsers.js';
+import { readFile } from './bin/gendiff.js';
 
 console.log('Leyendo archivos...');
 

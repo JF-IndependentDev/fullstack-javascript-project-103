@@ -16,4 +16,10 @@ export default defineConfig([
       },
     },
   },
+  {
+    files: ['eslint.config.js'],
+    rules: {
+      'import/no-extraneous-dependencies': 'off',
+    },
+  },
 ]);
