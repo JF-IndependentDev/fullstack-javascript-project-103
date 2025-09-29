@@ -1,4 +1,4 @@
-import { readFile } from './bin/gendiff.js';
+import { readFile } from './src/genDiff.js';
 
 console.log('Leyendo archivos...');
 
