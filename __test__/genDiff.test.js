@@ -1,3 +1,6 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["__filename", "__dirname"] }] */
+/* eslint fp/no-unused-expression: "off", fp/no-nil: "off" */
+
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
