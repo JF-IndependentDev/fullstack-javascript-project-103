@@ -1,3 +1,0 @@
-
-lint:
-	npm run lint

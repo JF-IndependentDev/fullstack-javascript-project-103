@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -81,7 +81,14 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -93,6 +100,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -100,17 +112,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const getDiff = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(o</span>bj1, obj2) =&gt; {</span>
-  const keys = <span class="cstat-no" title="statement not covered" >Array.from(new Set([...Object.keys(obj1), ...Object.keys(obj2)])).sort();</span>
+  const keys = <span class="cstat-no" title="statement not covered" >[...new Set([...Object.keys(obj1), ...Object.keys(obj2)])];</span>
+  const sortedKeys = <span class="cstat-no" title="statement not covered" >[...keys].sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a.localeCompare(b))</span>;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return keys.map(<span class="fstat-no" title="function not covered" >(k</span>ey) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!Object.hasOwn(obj1, key)) {</span>
+<span class="cstat-no" title="statement not covered" >  return sortedKeys.map(<span class="fstat-no" title="function not covered" >(k</span>ey) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!Object.prototype.hasOwnProperty.call(obj1, key)) {</span>
 <span class="cstat-no" title="statement not covered" >      return { key, type: 'added', value: obj2[key] };</span>
     }
-<span class="cstat-no" title="statement not covered" >    if (!Object.hasOwn(obj2, key)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!Object.prototype.hasOwnProperty.call(obj2, key)) {</span>
 <span class="cstat-no" title="statement not covered" >      return { key, type: 'removed', value: obj1[key] };</span>
     }
 <span class="cstat-no" title="statement not covered" >    if (obj1[key] !== obj2[key]) {</span>
-<span class="cstat-no" title="statement not covered" >      return { key, type: 'changed', oldValue: obj1[key], newValue: obj2[key] };</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        key,
+        type: 'changed',
+        oldValue: obj1[key],
+        newValue: obj2[key],
+      };
     }
 <span class="cstat-no" title="statement not covered" >    return { key, type: 'unchanged', value: obj1[key] };</span>
   });
@@ -124,7 +142,7 @@ export default getDiff;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-09-03T12:10:52.836Z
+                at 2026-01-07T12:27:41.527Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
