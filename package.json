@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^13.1.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "4.1.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21"
   },
@@ -24,10 +24,9 @@
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
-    "@eslint/js": "^9.36.0",
     "babel-jest": "^29.7.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.57.1",
+    "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-import": "^2.32.0",
