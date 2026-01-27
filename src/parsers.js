@@ -1,4 +1,4 @@
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 const parse = (content, extension) => {
   const cleanExt = extension.replace(/^\./, '').toLowerCase().trim();
