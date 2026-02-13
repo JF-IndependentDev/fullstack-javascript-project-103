@@ -39,3 +39,4 @@ export CC_TEST_REPORTER_ID=fce67b3fb1835fcd7fa6b7486ed391d201c53cbbb96c0cf0d0194
 git clone https://github.com/JF-IndependentDev/fullstack-javascript-project-103.git
 cd fullstack-javascript-project-103
 make install
+<!-- test push -->
