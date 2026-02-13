@@ -1,9 +1,9 @@
 
+lint:
+	npm run lint
+
 install:
 	npm install
-
-lint:
-	npx eslint .
 
 lint-fix:
 	npx eslint . --fix
