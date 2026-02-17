@@ -1,9 +1,8 @@
+install:
+	npm install
 
 lint:
 	npm run lint
-
-install:
-	npm install
 
 lint-fix:
 	npx eslint . --fix
@@ -17,5 +16,5 @@ test-coverage:
 publish:
 	npm publish --dry-run
 
-gendiff :
+gendiff:
 	node bin/gendiff.js
