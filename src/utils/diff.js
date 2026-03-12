@@ -1,6 +1,8 @@
+import _ from 'lodash';
+
 const getDiff = (obj1, obj2) => {
   const keys = [...new Set([...Object.keys(obj1), ...Object.keys(obj2)])];
-   const sortedKeys = _.sortBy(keys, (a) => a);
+  const sortedKeys = _.sortBy(keys, (a) => a);
 
   return sortedKeys.map((key) => {
     if (!Object.prototype.hasOwnProperty.call(obj1, key)) {
