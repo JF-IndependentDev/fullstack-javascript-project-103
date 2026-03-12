@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --config jest.config.js",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -18,9 +18,6 @@
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
-  },
-  "jest": {
-    "transform": {}
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
